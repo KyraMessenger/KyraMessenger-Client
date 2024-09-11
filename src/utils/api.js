@@ -24,4 +24,16 @@ const postRegister = async (email, username, password) => {
   return response;
 };
 
-export { postLogin, postRegister };
+const getUser = async () => {
+  const response = await axios({
+    method: "GET",
+    url: "http://localhost:3000/user",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
+  return response;
+};
+
+export { postLogin, postRegister, getUser };
