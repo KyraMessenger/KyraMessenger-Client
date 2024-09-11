@@ -59,7 +59,7 @@ export default function RegisterPageView({
                     id="email"
                     value={email}
                     onChange={onEmailChange}
-                    className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    className=" border border-gray-600 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="name@company.com"
                     required
                   />
@@ -77,7 +77,7 @@ export default function RegisterPageView({
                     id="username"
                     value={username}
                     onChange={onUsernameChange}
-                    className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    className=" border border-gray-600  sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Enter your username"
                     required
                   />
@@ -95,7 +95,7 @@ export default function RegisterPageView({
                     id="password"
                     value={password}
                     onChange={onPasswordChange}
-                    className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    className="border border-gray-600 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="••••••••"
                     required
                   />

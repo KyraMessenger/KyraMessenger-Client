@@ -1,7 +1,15 @@
-export default function LoginPageView() {
+export default function HomePageView() {
   return (
-    <div>
-      <h1 className="text-3xl text-red-600">EDIT REGISTER DISINI</h1>
+    <div className="h-screen">
+      <h1>Homeee</h1>,
+      <button
+        className="text-red-600"
+        onClick={() => {
+          localStorage.removeItem("token");
+        }}
+      >
+        Log out
+      </button>
     </div>
   );
 }
