@@ -17,6 +17,8 @@ export default function RegisterPage() {
 
       nav("/login");
     } catch (error) {
+      console.log(error);
+
       setError(error.response.data.message);
     }
   };
@@ -31,7 +33,8 @@ export default function RegisterPage() {
     setUsername(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     fetchRegister();
   };
 

@@ -84,12 +84,15 @@ export default function LoginPageView({
                 >
                   Sign in
                 </button>
-                <Link
-                  to="/register"
-                  className="text-sm font-light text-gray-300"
-                >
-                  Don’t have an account yet?
-                </Link>
+                <p className="text-sm font-light text-gray-300">
+                  Don't have an account?{" "}
+                  <Link
+                    to="/register"
+                    className="font-medium text-blue-500 hover:underline"
+                  >
+                    register here
+                  </Link>
+                </p>
               </form>
             </div>
           </div>
