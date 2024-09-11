@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sidebar, Avatar } from "flowbite-react";
+import { Sidebar, Avatar, Dropdown } from "flowbite-react";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 
