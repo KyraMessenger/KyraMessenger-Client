@@ -6,12 +6,6 @@ import { UserContext } from "../context/userContext";
 export default function ChatSidebar() {
   const [searchTerm, setSearchTerm] = useState("");
   const user = useContext(UserContext);
-  console.log(user);
-
-  const users = {
-    name: "John Doe",
-    profileImg: "https://via.placeholder.com/150",
-  };
 
   const chatUsers = [];
 
@@ -24,7 +18,7 @@ export default function ChatSidebar() {
       {/* Profile Section */}
       <div className="p-4 border-b">
         <div className="flex items-center space-x-3">
-          <Avatar img={users.Profile?.profilePicture} rounded={true} />
+          <Avatar img={user.Profile?.profilePicture} rounded={true} />
           <div>
             <h2 className="text-lg font-semibold">{user.username}</h2>
             <p className="text-sm text-gray-500">My Profile</p>
