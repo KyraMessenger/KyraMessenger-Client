@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Sidebar, Avatar } from "flowbite-react";
+import { Sidebar, Avatar, Dropdown } from "flowbite-react";
 
 export default function ChatSidebar() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isVisible, setIsVisible] = useState(true); // New state to control visibility
 
   const user = {
     name: "John Doe",
@@ -23,8 +24,18 @@ export default function ChatSidebar() {
           <Avatar img={user.profileImg} rounded={true} />
           <div>
             <h2 className="text-lg font-semibold">{user.name}</h2>
-            <p className="text-sm text-gray-500">My Profile</p>
           </div>
+          {/* Dropdown Button */}
+          <Dropdown
+            inline
+            label={<span className="text-gray-500 hover:text-gray-700"></span>}
+            className="ml-auto"
+          >
+            <Dropdown.Item href="#">Report this page</Dropdown.Item>
+            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
+            <Dropdown.Item href="#">Block this page</Dropdown.Item>
+            <Dropdown.Item href="#">Invite users</Dropdown.Item>
+          </Dropdown>
         </div>
       </div>
 
@@ -35,12 +46,12 @@ export default function ChatSidebar() {
           placeholder="Search chats..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 border rounded-lg bg-gray-50 focus:ring-primary-600 focus:border-primary-600"
+          className="w-full p-2 border rounded-lg bg-gray-300 focus:ring-primary-600 focus:border-primary-600"
         />
       </div>
 
       {/* Chat List with fixed height */}
-      <div className="flex-grow h-screen overflow-y-auto">
+      <div className="flex-grow h-screen overflow-y-auto opacity-0">
         <Sidebar aria-label="Chat Sidebar">
           <Sidebar.Items>
             <Sidebar.ItemGroup>
@@ -59,7 +70,7 @@ export default function ChatSidebar() {
                   </Sidebar.Item>
                 ))
               ) : (
-                <p className="text-center text-gray-500 p-4">No chats found</p>
+                <p className="text-center text-gray-500 p-4 ">No chats found</p>
               )}
             </Sidebar.ItemGroup>
           </Sidebar.Items>
