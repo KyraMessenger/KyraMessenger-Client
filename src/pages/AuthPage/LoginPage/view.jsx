@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import kyraLogo from "../../../assets/kyra.png";
 import loginIllustrator from "../../../assets/kyra_1.gif";
 import backgroundVideo from "../../../assets/test.gif";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function LoginPageView({
   emailOrUsername,
@@ -10,6 +12,8 @@ export default function LoginPageView({
   onPasswordChange,
   handleSubmit,
   error,
+  isPasswordVisible,
+  togglePasswordVisibility,
 }) {
   return (
     <section className="relative w-screen h-screen overflow-hidden">
@@ -21,7 +25,6 @@ export default function LoginPageView({
 
       <div className="relative z-10 flex items-center justify-center px-6 py-8 mx-auto h-full bg-black bg-opacity-50">
         <div className="flex flex-col md:flex-row bg-white bg-opacity-20 backdrop-blur-sm rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 w-full max-w-4xl">
-          \{" "}
           <div className="hidden md:flex items-center justify-center w-full md:w-1/2 dark:bg-gray-900 p-6">
             <img
               className="w-full h-auto object-contain"
@@ -60,7 +63,7 @@ export default function LoginPageView({
                     placeholder="name@company.com or username"
                   />
                 </div>
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-200"
@@ -68,7 +71,7 @@ export default function LoginPageView({
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={isPasswordVisible ? "text" : "password"}
                     name="password"
                     id="password"
                     value={password}
@@ -76,7 +79,17 @@ export default function LoginPageView({
                     className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="••••••••"
                   />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-12 right-4 flex items-center text-gray-300"
+                  >
+                    <FontAwesomeIcon
+                      icon={isPasswordVisible ? faEye : faEyeSlash}
+                    />
+                  </button>
                 </div>
+
                 <div className="flex items-center justify-between"></div>
                 <button
                   onClick={handleSubmit}
