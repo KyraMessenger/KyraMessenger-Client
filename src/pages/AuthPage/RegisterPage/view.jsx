@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import kyraLogo from "../../../assets/kyra.png";
 import loginIllustrator from "../../../assets/kyra_1.gif";
 import backgroundVideo from "../../../assets/test.gif";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function RegisterPageView({
   email,
@@ -14,6 +16,8 @@ export default function RegisterPageView({
   onConfirmPasswordChange,
   handleSubmit,
   error,
+  isPasswordVisible,
+  togglePasswordVisibility,
 }) {
   return (
     <section className="relative w-screen h-screen overflow-hidden">
@@ -82,7 +86,7 @@ export default function RegisterPageView({
                     required
                   />
                 </div>
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-200"
@@ -90,7 +94,7 @@ export default function RegisterPageView({
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={isPasswordVisible ? "text" : "password"}
                     name="password"
                     id="password"
                     value={password}
@@ -99,8 +103,17 @@ export default function RegisterPageView({
                     placeholder="••••••••"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-12 right-4 flex items-center text-gray-300"
+                  >
+                    <FontAwesomeIcon
+                      icon={isPasswordVisible ? faEye : faEyeSlash}
+                    />
+                  </button>
                 </div>
-                {/* <div>
+                <div className="relative">
                   <label
                     htmlFor="confirm-password"
                     className="block mb-2 text-sm font-medium text-gray-200"
@@ -108,16 +121,25 @@ export default function RegisterPageView({
                     Confirm Password
                   </label>
                   <input
-                    type="password"
+                    type={isPasswordVisible ? "text" : "password"}
                     name="confirm-password"
                     id="confirm-password"
                     value={confirmPassword}
                     onChange={onConfirmPasswordChange}
-                    className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    className="border border-gray-600 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="••••••••"
                     required
                   />
-                </div> */}
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute inset-y-12 right-4 flex items-center text-gray-300"
+                  >
+                    <FontAwesomeIcon
+                      icon={isPasswordVisible ? faEye : faEyeSlash}
+                    />
+                  </button>
+                </div>
 
                 <button
                   type="submit"
