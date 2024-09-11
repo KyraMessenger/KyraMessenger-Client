@@ -1,80 +1,97 @@
-export default function LoginPageView() {
+import { Link } from "react-router-dom";
+import kyraLogo from "../../../assets/kyra.png";
+import loginIllustrator from "../../../assets/kyra_1.gif";
+import backgroundVideo from "../../../assets/test.gif";
+
+export default function LoginPageView({
+  emailOrUsername,
+  password,
+  onEmailChange,
+  onPasswordChange,
+  handleSubmit,
+  error,
+}) {
   return (
-    <section className="bg-[#000335] w-screen h-screen">
-      {/* [#000335] */}
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        {/* Logo as title with larger size */}
-        <a
-          href="/"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          {/* Adjust the width and height for a larger logo */}
-          <img
-            className="w-72 h-30 -mt-20 "
-            src="https://fal.media/files/zebra/T3zqcXF2G62jwK7CskJRm.png"
-            alt="logo"
-          />
-        </a>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-[#000335] md:text-2xl dark:text-white">
-              Sign in to your account
-            </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-[#000335] dark:text-white"
+    <section className="relative w-screen h-screen overflow-hidden">
+      <img
+        src={backgroundVideo}
+        className="absolute inset-0 w-full h-full object-cover"
+        alt=""
+      />
+
+      <div className="relative z-10 flex items-center justify-center px-6 py-8 mx-auto h-full bg-black bg-opacity-50">
+        <div className="flex flex-col md:flex-row bg-white bg-opacity-20 backdrop-blur-sm rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 w-full max-w-4xl">
+          \{" "}
+          <div className="hidden md:flex items-center justify-center w-full md:w-1/2 dark:bg-gray-900 p-6">
+            <img
+              className="w-full h-auto object-contain"
+              src={loginIllustrator}
+              alt="Login Illustration"
+            />
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-6 md:p-8">
+            <div className="flex justify-center mb-4">
+              <img className="w-40" src={kyraLogo} alt="logo" />
+            </div>
+            <div className="w-full space-y-4 md:space-y-6">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl text-center">
+                Sign in to your account
+              </h1>
+              {error && (
+                <p className="text-red-300 bg-red-500 bg-opacity-30 p-2">
+                  {error}
+                </p>
+              )}
+              <form className="space-y-4 md:space-y-6">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-200"
+                  >
+                    Your email or username
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    value={emailOrUsername}
+                    onChange={onEmailChange}
+                    className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="name@company.com or username"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-200"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={password}
+                    onChange={onPasswordChange}
+                    className="bg-gray-800 border border-gray-600 text-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="••••••••"
+                  />
+                </div>
+                <div className="flex items-center justify-between"></div>
+                <button
+                  onClick={handleSubmit}
+                  className="w-full text-gray-900 bg-purple-400 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-[#000335] sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-[#000335] dark:text-white"
+                  Sign in
+                </button>
+                <Link
+                  to="/register"
+                  className="text-sm font-light text-gray-300"
                 >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="bg-gray-50 border border-gray-300 text-[#000335] sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="••••••••"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <a
-                  href="#"
-                  className="text-sm font-medium text-[#000335] hover:underline dark:text-primary-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <button
-                type="submit"
-                className="w-full text-[#000335] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Sign in
-              </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Sign up
-                </a>
-              </p>
-            </form>
+                  Don’t have an account yet?
+                </Link>
+              </form>
+            </div>
           </div>
         </div>
       </div>
