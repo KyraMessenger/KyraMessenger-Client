@@ -25,7 +25,6 @@ export default function RegisterPageView({
 
       <div className="relative z-10 flex items-center justify-center px-6 py-8 mx-auto h-full bg-black bg-opacity-50">
         <div className="flex flex-col md:flex-row bg-white bg-opacity-20 backdrop-blur-sm rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700 w-full max-w-4xl">
-          {/* Illustration */}
           <div className="hidden md:flex items-center justify-center w-full md:w-1/2 dark:bg-gray-900 p-6">
             <img
               className="w-full h-auto object-contain"
@@ -33,7 +32,6 @@ export default function RegisterPageView({
               alt="Register Illustration"
             />
           </div>
-          {/* Form */}
           <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-6 md:p-8">
             <div className="flex justify-center mb-4">
               <img className="w-40" src={kyraLogo} alt="logo" />
