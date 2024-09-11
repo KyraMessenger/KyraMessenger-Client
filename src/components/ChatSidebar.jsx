@@ -2,16 +2,28 @@ import { useState } from "react";
 import { Sidebar, Avatar, Dropdown } from "flowbite-react";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import EditProfile from "./EditProfile";
+import { useNavigate } from "react-router-dom";
 
 export default function ChatSidebar() {
   const [searchTerm, setSearchTerm] = useState("");
   const user = useContext(UserContext);
+  const nav = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   const chatUsers = [];
 
   const filteredUsers = chatUsers.filter((user) =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    nav("/login");
+  };
 
   return (
     <div className="w-80 h-full border-r flex flex-col">
@@ -29,12 +41,15 @@ export default function ChatSidebar() {
             label={<span className="text-gray-500 hover:text-gray-700"></span>}
             className="ml-auto"
           >
-            <Dropdown.Item href="#">Report this page</Dropdown.Item>
-            <Dropdown.Item href="#">Add to favorites</Dropdown.Item>
-            <Dropdown.Item href="#">Block this page</Dropdown.Item>
-            <Dropdown.Item href="#">Invite users</Dropdown.Item>
+            <Dropdown.Item onClick={handleOpenModal}>
+              Edit Profile
+            </Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout} className="text-red-600">
+              Logout
+            </Dropdown.Item>
           </Dropdown>
         </div>
+        <EditProfile isOpen={isModalOpen} onClose={handleCloseModal} />
       </div>
 
       {/* Search Bar */}
