@@ -7,7 +7,7 @@ function getToken() {
 const postLogin = async (emailOrUsername, password) => {
   const response = await axios({
     method: "POST",
-    url: "http://localhost:3000/login",
+    url: "https://kyra.yubenbauty.site/login",
     data: { emailOrUsername, password },
   });
 
@@ -17,7 +17,7 @@ const postLogin = async (emailOrUsername, password) => {
 const postRegister = async (email, username, password) => {
   const response = await axios({
     method: "POST",
-    url: "http://localhost:3000/register",
+    url: "https://kyra.yubenbauty.site/register",
     data: { email, username, password },
   });
 
@@ -27,7 +27,7 @@ const postRegister = async (email, username, password) => {
 const getUser = async () => {
   const response = await axios({
     method: "GET",
-    url: "http://localhost:3000/user",
+    url: "https://kyra.yubenbauty.site/user",
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -39,7 +39,7 @@ const getUser = async () => {
 const getAllUser = async () => {
   const response = await axios({
     method: "GET",
-    url: "http://localhost:3000/user/all",
+    url: "https://kyra.yubenbauty.site/user/all",
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -51,7 +51,7 @@ const getAllUser = async () => {
 const getNewMessage = async () => {
   return await axios({
     method: "GET",
-    url: "http://localhost:3000/message",
+    url: "https://kyra.yubenbauty.site/message",
     headers: {
       Authorization: `Bearer ${getToken()}`,
     },
@@ -61,7 +61,7 @@ const getNewMessage = async () => {
 const putProfile = async (fullName, profilePicture) => {
   return await axios({
     method: "PUT",
-    url: "http://localhost:3000/profile",
+    url: "https://kyra.yubenbauty.site/profile",
     data: { fullName, profilePicture },
     headers: {
       Authorization: `Bearer ${getToken()}`,

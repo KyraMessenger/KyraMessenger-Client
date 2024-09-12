@@ -6,7 +6,7 @@ import EmojiPicker from "emoji-picker-react"; // Import the emoji picker
 import logoHeader from "../../assets/logo_test_with_clouds_1.gif";
 
 export default function HomePageView() {
-  const socket = io("http://localhost:3000");
+  const socket = io("https://kyra.yubenbauty.site");
   const [socketId, setSocketId] = useState("");
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState([]);
