@@ -7,7 +7,8 @@ import { getAllUser } from "../utils/api";
 
 export default function ChatSidebar() {
   const [searchTerm, setSearchTerm] = useState("");
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
+
   const nav = useNavigate();
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -36,13 +37,13 @@ export default function ChatSidebar() {
   };
 
   useEffect(() => {
-    fetchAllUsers();
-  }, []);
+    if (user) {
+      fetchAllUsers();
+    }
+  }, [user]);
 
   return (
     <div className="w-80 h-full flex flex-col">
-      {" "}
-      {/* Ensure full height */}
       {/* Profile Section */}
       <div className="p-4 border-b">
         <div className="flex items-center space-x-3">
@@ -59,9 +60,6 @@ export default function ChatSidebar() {
             className="ml-auto"
           >
             <Dropdown.Item onClick={handleOpenProfileModal}>
-              Friend Request
-            </Dropdown.Item>
-            <Dropdown.Item onClick={handleOpenProfileModal}>
               Edit Profile
             </Dropdown.Item>
             <Dropdown.Item onClick={handleLogout} className="text-red-600">
@@ -76,8 +74,6 @@ export default function ChatSidebar() {
       </div>
       {/* Search Bar */}
       <div className="p-4 border-b">
-        {" "}
-        {/* Added bg color */}
         <input
           type="text"
           placeholder="Search chats..."

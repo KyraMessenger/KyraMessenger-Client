@@ -8,7 +8,7 @@ export default function HomePageView() {
   const [socketId, setSocketId] = useState("");
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState([]);
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const messagesEndRef = useRef(null);
 
