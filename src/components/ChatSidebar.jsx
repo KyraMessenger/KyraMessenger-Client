@@ -1,23 +1,33 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Sidebar, Avatar, Dropdown } from "flowbite-react";
-import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import EditProfile from "./EditProfile";
 import { useNavigate } from "react-router-dom";
+import { getAllUser } from "../utils/api";
 
 export default function ChatSidebar() {
   const [searchTerm, setSearchTerm] = useState("");
   const user = useContext(UserContext);
   const nav = useNavigate();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const handleOpenProfileModal = () => setIsProfileModalOpen(true);
+  const handleCloseProfileModal = () => setIsProfileModalOpen(false);
 
-  const chatUsers = [];
+  const [chatUsers, setChatUsers] = useState([]);
+
+  const fetchAllUsers = async () => {
+    try {
+      const { data } = await getAllUser();
+
+      setChatUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const filteredUsers = chatUsers.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleLogout = () => {
@@ -25,15 +35,22 @@ export default function ChatSidebar() {
     nav("/login");
   };
 
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
   return (
-    <div className="w-80 h-full border-r flex flex-col">
+    <div className="w-80 h-full flex flex-col">
+      {" "}
+      {/* Ensure full height */}
       {/* Profile Section */}
       <div className="p-4 border-b">
         <div className="flex items-center space-x-3">
           <Avatar img={user.Profile?.profilePicture} rounded={true} />
           <div>
-            <h2 className="text-lg font-semibold">{user.username}</h2>
-            <p className="text-sm text-gray-500">My Profile</p>
+            <h2 className="text-lg text-white font-semibold">
+              {user.username}
+            </h2>
           </div>
           {/* Dropdown Button */}
           <Dropdown
@@ -41,7 +58,10 @@ export default function ChatSidebar() {
             label={<span className="text-gray-500 hover:text-gray-700"></span>}
             className="ml-auto"
           >
-            <Dropdown.Item onClick={handleOpenModal}>
+            <Dropdown.Item onClick={handleOpenProfileModal}>
+              Friend Request
+            </Dropdown.Item>
+            <Dropdown.Item onClick={handleOpenProfileModal}>
               Edit Profile
             </Dropdown.Item>
             <Dropdown.Item onClick={handleLogout} className="text-red-600">
@@ -49,41 +69,50 @@ export default function ChatSidebar() {
             </Dropdown.Item>
           </Dropdown>
         </div>
-        <EditProfile isOpen={isModalOpen} onClose={handleCloseModal} />
+        <EditProfile
+          isOpen={isProfileModalOpen}
+          onClose={handleCloseProfileModal}
+        />
       </div>
-
       {/* Search Bar */}
       <div className="p-4 border-b">
+        {" "}
+        {/* Added bg color */}
         <input
           type="text"
           placeholder="Search chats..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 border rounded-lg bg-gray-300 focus:ring-primary-600 focus:border-primary-600"
+          className="w-full p-2 border rounded-lg bg-gray-300"
         />
       </div>
-
-      {/* Chat List with fixed height */}
-      <div className="flex-grow h-screen overflow-y-auto opacity-0">
-        <Sidebar aria-label="Chat Sidebar">
+      {/* Chat List */}
+      <div className="flex-grow h-full overflow-y-auto">
+        {" "}
+        {/* Full height & scrollable */}
+        <Sidebar aria-label="Chat Sidebar" className="w-full">
           <Sidebar.Items>
             <Sidebar.ItemGroup>
               {filteredUsers.length > 0 ? (
                 filteredUsers.map((chatUser) => (
-                  <Sidebar.Item key={chatUser.id} href="#">
+                  <Sidebar.Item
+                    key={chatUser.id}
+                    className="bg-transparent hover:bg-gray-100"
+                  >
                     <div className="flex items-center space-x-3">
-                      <Avatar img={chatUser.img} rounded={true} />
+                      <Avatar
+                        img={chatUser?.Profile.profilePicture}
+                        rounded={true}
+                      />
                       <div>
-                        <h3 className="font-semibold">{chatUser.name}</h3>
-                        <p className="text-sm text-gray-500">
-                          {chatUser.status}
-                        </p>
+                        <h3 className="font-semibold">{chatUser.username}</h3>
+                        <p className="text-sm text-gray-500">offline</p>
                       </div>
                     </div>
                   </Sidebar.Item>
                 ))
               ) : (
-                <p className="text-center text-gray-500 p-4 ">No chats found</p>
+                <p className="text-center text-gray-500 p-4">No chats found</p>
               )}
             </Sidebar.ItemGroup>
           </Sidebar.Items>
