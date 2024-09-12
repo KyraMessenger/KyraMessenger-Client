@@ -3,6 +3,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../../context/userContext";
 import { getNewMessage } from "../../utils/api";
 import EmojiPicker from "emoji-picker-react"; // Import the emoji picker
+import logoHeader from "../../assets/logo_test_with_clouds_1.gif";
 
 export default function HomePageView() {
   const socket = io("http://localhost:3000");
@@ -56,10 +57,10 @@ export default function HomePageView() {
   }, [newMessage]); // Scroll to bottom whenever new messages arrive
 
   return (
-    <div className="h-[80vh] flex flex-col">
-      <p className="text-2xl mb-4 text-center">
-        Connected with Socket ID: {socketId}
-      </p>
+    <div className="h-[80vh] flex flex-col border-l ">
+      <div className="flex items-center justify-center ">
+        <img src={logoHeader} alt="" className="w-28" />
+      </div>
 
       {/* Message Display Section */}
       <div className="flex-grow h-[80vh] overflow-y-auto p-4">
@@ -87,8 +88,8 @@ export default function HomePageView() {
                       : "bg-gray-200 text-black text-left"
                   }`}
                 >
-                  <p className="font-semibold">{el.User?.username}</p>
-                  <p className="mt-1">{el.message}</p>
+                  <p className="text-xs font-bold">{el.User?.username}</p>
+                  <p className="mt-1 text-lg break-words">{el.message}</p>
                 </div>
                 {isSender && (
                   <img
