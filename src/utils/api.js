@@ -36,4 +36,26 @@ const getUser = async () => {
   return response;
 };
 
-export { postLogin, postRegister, getUser };
+const getAllUser = async () => {
+  const response = await axios({
+    method: "GET",
+    url: "http://localhost:3000/user/all",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+
+  return response;
+};
+
+const getNewMessage = async () => {
+  return await axios({
+    method: "GET",
+    url: "http://localhost:3000/message",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+};
+
+export { postLogin, postRegister, getUser, getAllUser, getNewMessage };

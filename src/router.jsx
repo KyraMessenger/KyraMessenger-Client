@@ -4,6 +4,7 @@ import RegisterPage from "./pages/AuthPage/RegisterPage";
 import HomePage from "./pages/HomePage";
 import ChatSidebar from "./components/ChatSidebar";
 import backgroundVideo from "./assets/test.gif";
+import logoHeader from "./assets/logo_test_with_clouds_1.gif";
 import { UserProvider } from "./context/userContext";
 
 const router = createBrowserRouter([
@@ -47,15 +48,20 @@ const router = createBrowserRouter([
             alt=""
           />
 
+          {/* Logo Header */}
+          <div className="absolute top-0 left-0 z-20 p-4">
+            <img src={logoHeader} alt="Logo" className="w-36 h-auto" />
+          </div>
+
           {/* Foreground content */}
-          <div className="relative z-10 flex w-[80%] max-w-5xl max-h-[80vh] bg-white bg-opacity-80 backdrop-blur-md rounded-lg shadow-lg overflow-hidden">
+          <div className="relative z-10 flex w-[80%] max-w-5xl max-h-[80vh] bg-white bg-opacity-15 backdrop-blur-md rounded-lg shadow-lg overflow-hidden">
             {/* Sidebar */}
             <div className="w-80 flex-shrink-0 h-full overflow-hidden">
               <ChatSidebar />
             </div>
 
             {/* Main Content */}
-            <div className="flex-grow p-6 h-full overflow-auto">
+            <div className="flex-grow h-full overflow-auto">
               <Outlet />
             </div>
           </div>
