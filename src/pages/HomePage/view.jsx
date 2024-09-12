@@ -35,6 +35,12 @@ export default function HomePageView() {
     setMessage("");
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      sendMessage(e);
+    }
+  };
+
   const onEmojiClick = (emojiData) => {
     setMessage((prevMessage) => prevMessage + emojiData.emoji);
   };
@@ -115,6 +121,7 @@ export default function HomePageView() {
           className="flex-grow mr-2 p-2 border border-gray-300 rounded-md focus:outline-none"
           placeholder="Write your message here"
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={message}
         />
 
