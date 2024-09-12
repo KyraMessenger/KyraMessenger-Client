@@ -58,4 +58,22 @@ const getNewMessage = async () => {
   });
 };
 
-export { postLogin, postRegister, getUser, getAllUser, getNewMessage };
+const putProfile = async (fullName, profilePicture) => {
+  return await axios({
+    method: "PUT",
+    url: "http://localhost:3000/profile",
+    data: { fullName, profilePicture },
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+};
+
+export {
+  postLogin,
+  postRegister,
+  getUser,
+  getAllUser,
+  getNewMessage,
+  putProfile,
+};

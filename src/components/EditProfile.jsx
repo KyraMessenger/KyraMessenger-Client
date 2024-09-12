@@ -1,28 +1,44 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal, Button, TextInput, Label } from "flowbite-react";
+import { putProfile } from "../utils/api";
+import { UserContext } from "../context/userContext";
 
 export default function EditProfile({ isOpen, onClose }) {
   const [fullName, setFullName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
-  const [userData, setUserData] = useState({
-    fullName: "",
-    profilePicture: "",
-  });
 
-  const handleChange = (e) =>
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      setFullName(user.Profile?.fullName || "");
+      setProfilePicture(user.Profile?.profilePicture || "");
+    }
+  }, [user]);
+
+  const fetchPutProfile = async () => {
+    try {
+      const response = await putProfile(fullName, profilePicture);
+      console.log("Profile updated successfully:", response);
+    } catch (error) {
+      console.log("Error updating profile:", error);
+    }
+  };
 
   const handleSave = () => {
-    // Add your save logic here
-    console.log("Profile updated:", { fullName, profilePicture });
-    onClose();
+    if (fullName && profilePicture) {
+      fetchPutProfile();
+      onClose();
+    } else {
+      console.log("Full name and profile picture are required.");
+    }
   };
 
   return (
     <Modal show={isOpen} onClose={onClose}>
       <Modal.Header>Edit Profile</Modal.Header>
       <Modal.Body>
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-4">
           <div>
             <Label htmlFor="fullName" value="Full Name" />
             <TextInput

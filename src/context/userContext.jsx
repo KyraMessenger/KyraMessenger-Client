@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { getUser } from "../utils/api";
 
-// Initialize context with an empty object
 export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
@@ -10,7 +9,7 @@ export function UserProvider({ children }) {
   const fetchUser = async () => {
     try {
       const response = await getUser();
-      setUser(response.data); // Set the fetched user data
+      setUser(response.data);
     } catch (error) {
       console.error("Error fetching user:", error);
     }
@@ -20,5 +19,9 @@ export function UserProvider({ children }) {
     fetchUser();
   }, []);
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
