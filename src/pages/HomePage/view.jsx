@@ -2,6 +2,7 @@ import { io } from "socket.io-client";
 import { useContext, useEffect, useState, useRef } from "react";
 import { UserContext } from "../../context/userContext";
 import { getNewMessage } from "../../utils/api";
+import EmojiPicker from "emoji-picker-react"; // Import the emoji picker
 
 export default function HomePageView() {
   const socket = io("http://localhost:3000");
@@ -9,6 +10,8 @@ export default function HomePageView() {
   const [message, setMessage] = useState("");
   const [newMessage, setNewMessage] = useState([]);
   const { user } = useContext(UserContext);
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State to toggle emoji picker
 
   const messagesEndRef = useRef(null);
 
@@ -29,6 +32,10 @@ export default function HomePageView() {
     e.preventDefault();
     socket.emit("send-message", { message, from: user.id });
     setMessage("");
+  };
+
+  const onEmojiClick = (emojiData) => {
+    setMessage((prevMessage) => prevMessage + emojiData.emoji);
   };
 
   useEffect(() => {
@@ -109,6 +116,23 @@ export default function HomePageView() {
           onChange={(e) => setMessage(e.target.value)}
           value={message}
         />
+
+        {/* Emoji Picker Button */}
+        <button
+          type="button"
+          className="p-2 bg-gray-300 rounded-full mr-2"
+          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+        >
+          😊
+        </button>
+
+        {/* Emoji Picker */}
+        {showEmojiPicker && (
+          <div className="absolute bottom-16 left-4">
+            <EmojiPicker onEmojiClick={onEmojiClick} />
+          </div>
+        )}
+
         <button
           disabled={message.length === 0}
           onClick={sendMessage}
