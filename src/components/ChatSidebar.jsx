@@ -73,7 +73,7 @@ export default function ChatSidebar() {
         />
       </div>
       {/* Search Bar */}
-      <div className="p-4 border-b">
+      <div className="p-4">
         <input
           type="text"
           placeholder="Search chats..."
@@ -83,7 +83,7 @@ export default function ChatSidebar() {
         />
       </div>
       {/* Chat List */}
-      <div className="flex-grow h-full overflow-y-auto">
+      <div className="p-4 flex-grow h-full opacity-90 overflow-y-auto">
         {" "}
         {/* Full height & scrollable */}
         <Sidebar aria-label="Chat Sidebar" className="w-full">
